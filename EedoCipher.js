@@ -33,23 +33,23 @@ module.exports = class EedoCipher extends require("./BlockCipherBase") {
     }
 
     _updateBlockBuffer() {
-        const iterated0 = this._iterated % 0x100000000, iterated32 = Math.floor(this._iterated / 0x100000000)
-        this._blockUint32[0] = 1868850501 + iterated0
+        const iterated32 = Math.floor(this._iterated / 0x100000000)
+        this._blockUint32[0] = 1868850501 + this._iterated
         this._blockUint32[1] = this._key[0]
         this._blockUint32[2] = this._key[1]
         this._blockUint32[3] = this._key[2] + iterated32
         this._blockUint32[4] = this._key[3]
         this._blockUint32[5] = 1752197443 - iterated32
-        this._blockUint32[6] = iterated0
+        this._blockUint32[6] = this._iterated
         this._blockUint32[7] = this._nonce[0]
         this._blockUint32[8] = this._nonce[1]
-        this._blockUint32[9] = -iterated0
+        this._blockUint32[9] = -this._iterated
         this._blockUint32[10] = 1934193253 + iterated32
         this._blockUint32[11] = this._key[4]
         this._blockUint32[12] = this._key[5] - iterated32
         this._blockUint32[13] = this._key[6]
         this._blockUint32[14] = this._key[7]
-        this._blockUint32[15] = 1953718598 - iterated0
+        this._blockUint32[15] = 1953718598 - this._iterated
 
         this._blockUint32[4] ^= ROTL(this._blockUint32[0] + this._blockUint32[12], 7)
         this._blockUint32[8] ^= ROTL(this._blockUint32[4] + this._blockUint32[0], 9)
