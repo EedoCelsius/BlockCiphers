@@ -25,7 +25,7 @@ module.exports = class ChachaCipher extends require("./BlockCipherBase") {
     }
 
     _updateBlockBuffer() {
-        this._state[12] = this._iterated % 0x100000000, this._state[13] = Math.floor(this._iterated / 0x100000000)
+        this._state[12] = this._iterated, this._state[13] = Math.floor(this._iterated / 0x100000000)
         for (let i = 0; i < 16; i++) this._blockUint32[i] = this._state[i]
 
         for (let r = 0; r < this._rounds; r += 2) {
