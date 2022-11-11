@@ -4,7 +4,7 @@ module.exports = class ChachaCipher extends require("./BlockCipherBase") {
         super()
         this._blockUint32 = new Uint32Array(this._blockBuffer)
         this._state = new Uint32Array([1634760805, 857760878, 2036477234, 1797285236, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-        this.reset(key || [], nonce || [], rounds || 20)
+        this.reset(key || [], nonce || [0, 0], rounds || 20)
     }
 
     reset(key, nonce, rounds) {
