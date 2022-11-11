@@ -21,10 +21,10 @@ module.exports = class ChachaCipher extends require("./BlockCipherBase") {
         }
         if (nonce) {
             if (ArrayBuffer.isView(nonce)) {
-                if (nonce.byteLength !== 32) throw Error("Byte length of 'nonce' argument should be 32")
+                if (nonce.byteLength !== 8) throw Error("Byte length of 'nonce' argument should be 8")
                 if (!(nonce instanceof Uint32Array)) nonce = new Uint32Array(nonce.slice().buffer)
             }
-            else if (nonce.length !== 8) throw Error("Length of 'nonce' argument should be 2")
+            else if (nonce.length !== 2) throw Error("Length of 'nonce' argument should be 2")
             
             this._base[14] = nonce[0], this._base[15] = nonce[1]
         }
@@ -55,7 +55,7 @@ module.exports = class ChachaCipher extends require("./BlockCipherBase") {
             this._blockUint32[15] = ROTL(this._blockUint32[15] ^ (this._blockUint32[3] += this._blockUint32[7]), 8)
             this._blockUint32[7] = ROTL(this._blockUint32[7] ^ (this._blockUint32[11] += this._blockUint32[15]), 7)
             
-            if (round++ < this._rounds) break
+            if (++round < this._rounds) break
             
             this._blockUint32[15] = ROTL(this._blockUint32[15] ^ (this._blockUint32[0] += this._blockUint32[5]), 16)
             this._blockUint32[5] = ROTL(this._blockUint32[5] ^ (this._blockUint32[10] += this._blockUint32[15]), 12)
